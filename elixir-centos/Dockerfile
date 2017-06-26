@@ -91,6 +91,6 @@ RUN yum -y install epel-release && yum clean all
 RUN yum -y install python-pip && yum clean all
 
 RUN pip install --upgrade pip && pip install --upgrade --user awscli
-RUN export PATH=~/.local/bin/:$PATH
+ENV PATH=/root/.local/bin/:$PATH
 
 CMD ["/bin/sh"]
