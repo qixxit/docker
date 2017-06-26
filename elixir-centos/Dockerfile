@@ -1,9 +1,11 @@
 FROM centos:7.3.1611
 MAINTAINER Leif Gensert <leif@leif.io>
 
-ARG DISABLED_APPS='megaco wx debugger jinterface orber reltool observer et'
 ENV ERLANG_VERSION=20.0
 ENV ELIXIR_VERSION=1.4.5
+ENV ERL_AFLAGS="-kernel shell_history enabled"
+
+ARG DISABLED_APPS='megaco wx debugger jinterface orber reltool observer et'
 ARG ERLANG_TAG=OTP-${ERLANG_VERSION}
 ARG ELIXIR_TAG=v${ELIXIR_VERSION}
 
