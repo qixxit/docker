@@ -22,7 +22,7 @@ RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 
 RUN locale
 
-RUN yum -y install git ncurses-devel install gcc gcc-c++ make openssl-devel autoconf && yum clean all
+RUN yum -y install git ncurses-devel install gcc gcc-c++ make cmake openssl-devel autoconf ruby ruby-devel && yum clean all
 
 # install erlang
 
@@ -86,6 +86,8 @@ RUN cd /tmp \
 		&& mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}_elixir-${ELIXIR_VERSION}.plt /usr/local/lib/erlang/elixir.plt \
 		&& rm -rf \
 			/tmp/*
+
+RUN gem install pronto-credo --no-ri --no-rdoc -v 0.0.6
 
 RUN yum -y install epel-release && yum clean all
 RUN yum -y install python-pip && yum clean all
