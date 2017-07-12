@@ -28,9 +28,8 @@ RUN yum -y install git ncurses-devel install gcc gcc-c++ make cmake openssl-deve
 
 RUN set -xe \
 		cd /tmp \
-		&& git clone https://github.com/erlang/otp.git \
+		&& git clone --branch $ERLANG_TAG --depth=1 --single-branch https://github.com/erlang/otp.git \
     && cd otp \
-    && git checkout $ERLANG_TAG \
     && echo "ERLANG_BUILD=$(git rev-parse HEAD)" >> /info.txt \
     && echo "ERLANG_VERSION=$(cat OTP_VERSION)" >> /info.txt  \
     && for lib in ${DISABLED_APPS} ; do touch lib/${lib}/SKIP ; done \
@@ -57,9 +56,8 @@ RUN cd /tmp \
     && git clone https://github.com/elixir-lang/elixir.git \
     && cd elixir
 
-RUN git clone https://github.com/elixir-lang/elixir.git \
+RUN git clone --branch $ELIXIR_TAG --depth=1 --single-branch https://github.com/elixir-lang/elixir.git \
 		&& cd elixir \
-		&& git checkout $ELIXIR_TAG \
     && echo "ELIXIR_BUILD=$(git rev-parse HEAD)" >> /info.txt \
     && echo "ELIXIR_VERSION=$(cat VERSION)" >> /info.txt  \
     && make -j$(nproc) compile \
