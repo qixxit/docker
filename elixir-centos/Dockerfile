@@ -24,7 +24,7 @@ RUN locale
 
 RUN yum -y install git ncurses-devel install gcc gcc-c++ make cmake openssl-devel autoconf ruby ruby-devel zip && yum clean all
 
-# install erlang
+# Install Erlang
 
 RUN set -xe \
 		cd /tmp \
