@@ -2,7 +2,7 @@ FROM centos:7.3.1611
 MAINTAINER Leif Gensert <leif@leif.io>
 
 ENV ERLANG_VERSION=20.0.2
-ENV ELIXIR_VERSION=1.4.5
+ENV ELIXIR_VERSION=1.5.1
 ENV ERL_AFLAGS="-kernel shell_history enabled"
 
 ARG DISABLED_APPS='megaco wx debugger jinterface orber reltool observer et'
