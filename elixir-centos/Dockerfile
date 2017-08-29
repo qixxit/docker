@@ -111,6 +111,7 @@ RUN cd /tmp \
       /tmp/*
 
 RUN gem install pronto-credo --no-ri --no-rdoc -v 0.0.7
+RUN gem install pronto-dialyzer --no-ri --no-rdoc -v 0.3.0
 
 RUN yum -y install epel-release && yum clean all
 RUN yum -y install python-pip && yum clean all
