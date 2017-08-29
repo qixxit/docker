@@ -1,7 +1,7 @@
 FROM centos:7.3.1611
 MAINTAINER Leif Gensert <leif@leif.io>
 
-ENV ERLANG_VERSION=20.0.3
+ENV ERLANG_VERSION=20.0.4
 ENV ELIXIR_VERSION=1.5.1
 ENV RUBY_VERSION=2.4.1
 ENV ERL_AFLAGS="-kernel shell_history enabled"
