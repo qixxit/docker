@@ -22,7 +22,20 @@ RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 
 RUN locale
 
-RUN yum -y install git ncurses-devel install gcc gcc-c++ make cmake openssl-devel autoconf ruby ruby-devel zip && yum clean all
+RUN yum -y install \
+						git \
+						ncurses-devel \
+						install \
+						gcc \
+						gcc-c++ \
+						make \
+						cmake \
+						openssl-devel \
+						autoconf \
+						ruby \
+						ruby-devel \
+						zip \
+					&& yum clean all
 
 # Install Erlang
 
