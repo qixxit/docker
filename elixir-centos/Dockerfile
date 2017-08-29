@@ -25,35 +25,35 @@ RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 RUN locale
 
 RUN yum -y install \
-						git \
-						ncurses-devel \
-						install \
-						gcc \
-						gcc-c++ \
-						make \
-						cmake \
-						openssl-devel \
-						autoconf \
-						zip \
-						bzip2 \
-						readline-devel \
-					&& yum clean all
+          git \
+          ncurses-devel \
+          install \
+          gcc \
+          gcc-c++ \
+          make \
+          cmake \
+          openssl-devel \
+          autoconf \
+          zip \
+          bzip2 \
+          readline-devel \
+          && yum clean all
 
 # Install Ruby (system ruby is too old)
 
 RUN set -xe \
     cd /tmp \
-		&& git clone --depth=1 https://github.com/rbenv/ruby-build.git \
-		&& PREFIX=/usr/local ./ruby-build/install.sh \
-		&& ruby-build $RUBY_VERSION /root/.local/ruby
+    && git clone --depth=1 https://github.com/rbenv/ruby-build.git \
+    && PREFIX=/usr/local ./ruby-build/install.sh \
+    && ruby-build $RUBY_VERSION /root/.local/ruby
 
 ENV PATH=/root/.local/ruby/bin/:$PATH
 
 # Install Erlang
 
 RUN set -xe \
-		cd /tmp \
-		&& git clone --branch $ERLANG_TAG --depth=1 --single-branch https://github.com/erlang/otp.git \
+    cd /tmp \
+    && git clone --branch $ERLANG_TAG --depth=1 --single-branch https://github.com/erlang/otp.git \
     && cd otp \
     && echo "ERLANG_BUILD=$(git rev-parse HEAD)" >> /info.txt \
     && echo "ERLANG_VERSION=$(cat OTP_VERSION)" >> /info.txt  \
@@ -71,8 +71,8 @@ RUN set -xe \
     && make install \
     && find /usr/local -name examples | xargs rm -rf \
     && ls -d /usr/local/lib/erlang/lib/*/src | xargs rm -rf \
-		&& rm -rf \
-		 	/otp/* \
+    && rm -rf \
+       /otp/* \
       /tmp/*
 
 # Install Elixir
@@ -82,13 +82,13 @@ RUN cd /tmp \
     && cd elixir
 
 RUN git clone --branch $ELIXIR_TAG --depth=1 --single-branch https://github.com/elixir-lang/elixir.git \
-		&& cd elixir \
+    && cd elixir \
     && echo "ELIXIR_BUILD=$(git rev-parse HEAD)" >> /info.txt \
     && echo "ELIXIR_VERSION=$(cat VERSION)" >> /info.txt  \
     && make -j$(nproc) compile \
     && rm -rf .git \
     && make install \
-		&& cd / \
+    && cd / \
     && rm -rf \
       /tmp/*
 
@@ -99,16 +99,16 @@ RUN mix local.rebar --force
 
 RUN cd /tmp \
     && git clone https://github.com/jeremyjh/dialyxir.git \
-		&& cd dialyxir \
-		&& MIX_ENV=prod mix do compile, archive.build \
-		&& MIX_ENV=prod mix archive.install --force \
-		&& cd / \
-		&& MIX_ENV=test mix dialyzer --plt \
-		&& mkdir -p /var/lib/erlang_plt \
-		&& mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}.plt /usr/local/lib/erlang/erlang.plt \
-		&& mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}_elixir-${ELIXIR_VERSION}.plt /usr/local/lib/erlang/elixir.plt \
-		&& rm -rf \
-			/tmp/*
+    && cd dialyxir \
+    && MIX_ENV=prod mix do compile, archive.build \
+    && MIX_ENV=prod mix archive.install --force \
+    && cd / \
+    && MIX_ENV=test mix dialyzer --plt \
+    && mkdir -p /var/lib/erlang_plt \
+    && mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}.plt /usr/local/lib/erlang/erlang.plt \
+    && mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}_elixir-${ELIXIR_VERSION}.plt /usr/local/lib/erlang/elixir.plt \
+    && rm -rf \
+      /tmp/*
 
 RUN gem install pronto-credo --no-ri --no-rdoc -v 0.0.7
 
