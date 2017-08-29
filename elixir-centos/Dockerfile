@@ -3,16 +3,18 @@ MAINTAINER Leif Gensert <leif@leif.io>
 
 ENV ERLANG_VERSION=20.0.3
 ENV ELIXIR_VERSION=1.5.1
+ENV RUBY_VERSION=2.4.1
 ENV ERL_AFLAGS="-kernel shell_history enabled"
 
 ARG DISABLED_APPS='megaco wx debugger jinterface orber reltool observer et'
 ARG ERLANG_TAG=OTP-${ERLANG_VERSION}
 ARG ELIXIR_TAG=v${ELIXIR_VERSION}
 
-LABEL erlang_version=$ERLANG_VERSION erlang_disabled_apps=$DISABLED_APPS elixir_version=$ELIXIR_VERSION
+LABEL erlang_version=$ERLANG_VERSION erlang_disabled_apps=$DISABLED_APPS elixir_version=$ELIXIR_VERSION ruby_version=$RUBY_VERSION
 
 RUN yum update -y && yum clean all
 RUN yum reinstall -y glibc-common && yum clean all
+RUN yum install -y centos-release-scl && yum clean all
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -32,10 +34,20 @@ RUN yum -y install \
 						cmake \
 						openssl-devel \
 						autoconf \
-						ruby \
-						ruby-devel \
 						zip \
+						bzip2 \
+						readline-devel \
 					&& yum clean all
+
+# Install Ruby (system ruby is too old)
+
+RUN set -xe \
+    cd /tmp \
+		&& git clone --depth=1 https://github.com/rbenv/ruby-build.git \
+		&& PREFIX=/usr/local ./ruby-build/install.sh \
+		&& ruby-build $RUBY_VERSION /root/.local/ruby
+
+ENV PATH=/root/.local/ruby/bin/:$PATH
 
 # Install Erlang
 
@@ -86,7 +98,7 @@ RUN mix local.hex --force
 RUN mix local.rebar --force
 
 RUN cd /tmp \
-		&& git clone https://github.com/jeremyjh/dialyxir.git \
+    && git clone https://github.com/jeremyjh/dialyxir.git \
 		&& cd dialyxir \
 		&& MIX_ENV=prod mix do compile, archive.build \
 		&& MIX_ENV=prod mix archive.install --force \
