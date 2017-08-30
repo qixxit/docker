@@ -104,9 +104,6 @@ RUN cd /tmp \
     && MIX_ENV=prod mix archive.install --force \
     && cd / \
     && MIX_ENV=test mix dialyzer --plt \
-    && mkdir -p /var/lib/erlang_plt \
-    && mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}.plt /usr/local/lib/erlang/erlang.plt \
-    && mv /root/.mix/dialyxir_erlang-${ERLANG_VERSION}_elixir-${ELIXIR_VERSION}.plt /usr/local/lib/erlang/elixir.plt \
     && rm -rf \
       /tmp/*
 
