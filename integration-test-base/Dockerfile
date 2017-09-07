@@ -2,7 +2,8 @@ FROM qixxit/elixir-centos:latest
 MAINTAINER Leif Gensert <leif@leif.io>
 
 RUN yum -y install \
-          wget
+          wget \
+          jq
 
 ENV NODE_VERSION=8.4.0
 
@@ -19,5 +20,9 @@ RUN set -xe \
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 ENV PATH=/root/.yarn/bin/:$PATH
+
+RUN curl -O https://raw.githubusercontent.com/rockymadden/slack-cli/master/src/slack \
+    && chmod +x slack \
+    && mv slack /usr/local/bin
 
 CMD ["/bin/sh"]
