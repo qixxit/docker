@@ -5,7 +5,7 @@ RUN yum -y install \
           wget \
           jq
 
-ENV NODE_VERSION=8.4.0
+ENV NODE_VERSION=8.5.0
 
 LABEL node_version=$NODE_VERSION
 
