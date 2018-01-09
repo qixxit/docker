@@ -1,9 +1,9 @@
-FROM centos:7.3.1611
-MAINTAINER Leif Gensert <leif@leif.io>
+FROM centos:7
+MAINTAINER Daniel Temme <daniel@qixxit.de>
 
-ENV ERLANG_VERSION=20.0.4
-ENV ELIXIR_VERSION=1.5.1
-ENV RUBY_VERSION=2.4.1
+ENV ERLANG_VERSION=20.2
+ENV ELIXIR_VERSION=1.5.3
+ENV RUBY_VERSION=2.4.3
 ENV ERL_AFLAGS="-kernel shell_history enabled"
 
 ARG DISABLED_APPS='megaco wx debugger jinterface orber reltool observer et'
