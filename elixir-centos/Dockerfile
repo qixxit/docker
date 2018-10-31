@@ -98,6 +98,10 @@ RUN mix local.hex --force
 RUN mix local.rebar --force
 
 RUN cd /tmp \
+    && git clone https://github.com/asummers/erlex \
+    && cd erlex \
+    && MIX_ENV=prod mix do compile, archive.build, archive.install \
+    && cd - \
     && git clone https://github.com/jeremyjh/dialyxir.git \
     && cd dialyxir \
     && MIX_ENV=prod mix do compile, archive.build \
