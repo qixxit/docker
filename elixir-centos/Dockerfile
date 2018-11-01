@@ -100,7 +100,7 @@ RUN mix local.rebar --force
 RUN cd /tmp \
     && git clone https://github.com/asummers/erlex \
     && cd erlex \
-    && MIX_ENV=prod mix do compile, archive.build, archive.install \
+    && MIX_ENV=prod mix do compile, archive.build, archive.install --force \
     && cd - \
     && git clone https://github.com/jeremyjh/dialyxir.git \
     && cd dialyxir \
