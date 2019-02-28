@@ -14,7 +14,7 @@ LABEL erlang_version=$ERLANG_VERSION erlang_disabled_apps=$DISABLED_APPS elixir_
 
 RUN yum update -y && yum clean all
 RUN yum reinstall -y glibc-common && yum clean all
-RUN yum install -y centos-release-scl && yum clean all
+RUN yum install -y centos-release-scl jq && yum clean all
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
