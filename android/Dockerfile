@@ -1,4 +1,4 @@
-FROM circleci/android:api-26-alpha
+FROM circleci/android:api-28
 MAINTAINER daniel@qixxit.de
 
 USER root
