@@ -38,6 +38,7 @@ RUN yum -y install \
           bzip2 \
           readline-devel \
           jq \
+          npm \
           && yum clean all
 
 # Install Ruby (system ruby is too old)
