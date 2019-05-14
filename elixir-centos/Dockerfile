@@ -39,6 +39,7 @@ RUN yum -y install \
           readline-devel \
           jq \
           npm \
+          libsqlite3x-devel \
           && yum clean all
 
 # Install Ruby (system ruby is too old)
