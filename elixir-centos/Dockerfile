@@ -101,23 +101,6 @@ RUN echo cat /info.txt
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-RUN cd /tmp \
-    && git clone https://github.com/asummers/erlex \
-    && cd erlex \
-    && mix do deps.get, compile, archive.build, archive.install --force \
-    && cd - \
-    && git clone https://github.com/jeremyjh/dialyxir.git \
-    && cd dialyxir \
-    && MIX_ENV=prod mix do deps.get, compile, archive.build \
-    && MIX_ENV=prod mix archive.install --force \
-    && cd / \
-    && MIX_ENV=test mix dialyzer --plt \
-    && rm -rf \
-      /tmp/*
-
-RUN gem install pronto-credo --no-ri --no-rdoc -v 0.0.7
-RUN gem install pronto-dialyzer --no-ri --no-rdoc -v 0.3.0
-
 RUN pip install --upgrade pip && pip install --upgrade --user awscli
 ENV PATH=/root/.local/bin/:$PATH
 
