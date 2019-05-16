@@ -40,6 +40,7 @@ RUN yum -y install \
           jq \
           npm \
           libsqlite3x-devel \
+          python-pip \
           && yum clean all
 
 # Install Ruby (system ruby is too old)
@@ -116,9 +117,6 @@ RUN cd /tmp \
 
 RUN gem install pronto-credo --no-ri --no-rdoc -v 0.0.7
 RUN gem install pronto-dialyzer --no-ri --no-rdoc -v 0.3.0
-
-RUN yum -y install epel-release && yum clean all
-RUN yum -y install python-pip && yum clean all
 
 RUN pip install --upgrade pip && pip install --upgrade --user awscli
 ENV PATH=/root/.local/bin/:$PATH
