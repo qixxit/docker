@@ -1,8 +1,8 @@
 FROM centos:7
 MAINTAINER Daniel Temme <daniel@qixxit.de>
 
-ENV ERLANG_VERSION=21.1.1
-ENV ELIXIR_VERSION=1.8.2
+ENV ERLANG_VERSION=21.3.8
+ENV ELIXIR_VERSION=1.9.1
 ENV RUBY_VERSION=2.4.3
 ENV ERL_AFLAGS="-kernel shell_history enabled"
 
